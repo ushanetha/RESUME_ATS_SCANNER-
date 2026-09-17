@@ -7,12 +7,11 @@ from report_generator import ReportGenerator
 import os
 
 app = Flask(__name__)
-import io
+UPLOAD_DIR = "uploads"
+REPORT_DIR = "reports"
 
-output = io.StringIO()
-df.to_csv(output, index=False)
-
-csv_data = output.getvalue()
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(REPORT_DIR, exist_ok=True)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
