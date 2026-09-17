@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, send_from_directory
 from resume_parser import ResumeParser
 from job_matcher import JobMatcher
-from section_analyzer import SectionAnalyzer
 from formatting_checker import FormattingChecker
 from report_generator import ReportGenerator
 import os
