@@ -7,6 +7,7 @@ from report_generator import ReportGenerator
 import os
 
 app = Flask(__name__)
+import io
 UPLOAD_DIR = "uploads"
 REPORT_DIR = "reports"
 
