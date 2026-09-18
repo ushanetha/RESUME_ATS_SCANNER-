@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume ATS Scanner</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #172033; }
+    h1 { color: #1d4ed8; }
+    form, .card { border: 1px solid #dbe3ef; border-radius: 12px; padding: 22px; margin: 18px 0; box-shadow: 0 3px 12px #0000000d; }
+    label { display: block; font-weight: 600; margin: 14px 0 6px; }
+    input, button { font-size: 1rem; padding: 10px; }
+    button { margin-top: 18px; border: 0; border-radius: 7px; background: #1d4ed8; color: white; cursor: pointer; }
+    .error { color: #b91c1c; background: #fee2e2; padding: 12px; border-radius: 7px; }
+    .success { color: #166534; background: #dcfce7; padding: 12px; border-radius: 7px; }
+    table { border-collapse: collapse; width: 100%; } th, td { border-bottom: 1px solid #e5e7eb; text-align: left; padding: 9px; }
+  </style>
+</head>
+<body>
+  <h1>Resume ATS Scanner</h1>
+  <p>Upload a resume and job description to generate an ATS compatibility report.</p>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  <form method="post" enctype="multipart/form-data">
+    <label for="resume">Resume (PDF or DOCX)</label>
+    <input id="resume" name="resume" type="file" accept=".pdf,.docx" required>
+    <label for="job_description">Job description (TXT)</label>
+    <input id="job_description" name="job_description" type="file" accept=".txt" required>
+    <br><button type="submit">Analyze Resume</button>
+  </form>
+  {% if result %}
+  <section class="card">
+    <h2>Results</h2>
+    <table>
+      <tr><th>ATS Match Percentage</th><td>{{ result.match_percentage.match_percentage }}%</td></tr>
+      <tr><th>Formatting Score</th><td>{{ result.formatting.score }}</td></tr>
+      <tr><th>Matched Keywords</th><td>{{ result.match_percentage.matched_keywords|join(', ') }}</td></tr>
+      <tr><th>Missing Keywords</th><td>{{ result.match_percentage.missing_keywords|join(', ') }}</td></tr>
+    </table>
+    {% if report_file %}<p class="success">Analysis complete. <a href="{{ url_for('download', filename=report_file) }}">Download CSV report</a></p>{% endif %}
+  </section>
+  {% endif %}
+</body>
+</html>
