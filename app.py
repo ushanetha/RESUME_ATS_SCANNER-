@@ -57,4 +57,4 @@ def download(filename):
     return send_from_directory(REPORT_DIR, filename, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run()
+    app.run("debug run")
