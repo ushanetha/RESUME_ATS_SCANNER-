@@ -7,13 +7,8 @@ from report_generator import ReportGenerator
 import os
 
 app = Flask(__name__)
-import io
 UPLOAD_DIR = "uploads"
 REPORT_DIR = "reports"
-output = io.StringIO()
-df.to_csv(output, index=False)
-
-csv_data = output.getvalue()
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(REPORT_DIR, exist_ok=True)
@@ -57,5 +52,4 @@ def download(filename):
     return send_from_directory(REPORT_DIR, filename, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run
     app.run("debug run")
